@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Qt 5.14.2 配置安卓开发 - 柒柒の窝</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="柒柒の窝"><meta name="msapplication-TileImage" content="https://s2.loli.net/2022/03/22/tYA8x4USsG2h3Cf.jpg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="柒柒の窝"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta description="在Windows下 使用Qt 5.14.2 配置安卓开发 本文环境：  OS：Windows 10 Qt 5.14.2 android-sdk_r25.2.5-windows（r24.4.1 升级来的） android-ndk-r20b-windows-x86_64 jdk-8u351-windows-x64"><meta property="og:type" content="article"><meta property="og:title" content="柒柒の窝"><meta property="og:url" content="https://sayurinana.ink/2024-02-19/Qt-5-14-2-%E9%85%8D%E7%BD%AE%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/"><meta property="og:site_name" content="柒柒の窝"><meta property="og:description" content="在Windows下 使用Qt 5.14.2 配置安卓开发 本文环境：  OS：Windows 10 Qt 5.14.2 android-sdk_r25.2.5-windows（r24.4.1 升级来的） android-ndk-r20b-windows-x86_64 jdk-8u351-windows-x64"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219213144454.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219213641371.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219221550989.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219221726065.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219222406774.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231313576.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231322621.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231512912.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231610322.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231818348.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231946664.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219232508480.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219232601603.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219233232779.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219233103952.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219234156332.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220000356176.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220000527234.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220000945329.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001518302.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001630802.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001853596.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001939990.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003134371.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003359616.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003543141.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003746531.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134317632.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134434416.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134532156.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134548632.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134558285.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134607660.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134904725.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135037057.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135217512.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135519921.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135635031.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135445532.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135721996.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135833420.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135828350.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135941365.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221180935901.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221180907720.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221181102229.png"><meta property="og:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221181320201.png"><meta property="article:published_time" content="2024-02-19T12:23:27.000Z"><meta property="article:modified_time" content="2024-02-26T13:54:12.736Z"><meta property="article:author" content="樱缘柒柒"><meta property="article:tag" content="Qt5"><meta property="article:tag" content="Android"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219213144454.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://sayurinana.ink/2024-02-19/Qt-5-14-2-%E9%85%8D%E7%BD%AE%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/"},"headline":"柒柒の窝","image":["https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219213144454.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219213641371.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219221550989.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219221726065.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219222406774.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231313576.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231322621.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231512912.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231610322.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231818348.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231946664.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219232508480.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219232601603.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219233232779.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219233103952.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219234156332.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220000356176.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220000527234.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220000945329.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001518302.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001630802.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001853596.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001939990.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003134371.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003359616.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003543141.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003746531.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134317632.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134434416.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134532156.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134548632.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134558285.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134607660.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134904725.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135037057.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135217512.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135519921.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135635031.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135445532.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135721996.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135833420.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135828350.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135941365.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221180935901.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221180907720.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221181102229.png","https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221181320201.png"],"datePublished":"2024-02-19T12:23:27.000Z","dateModified":"2024-02-26T13:54:12.736Z","author":{"@type":"Person","name":"樱缘柒柒"},"description":"在Windows下 使用Qt 5.14.2 配置安卓开发 本文环境：  OS：Windows 10 Qt 5.14.2 android-sdk_r25.2.5-windows（r24.4.1 升级来的） android-ndk-r20b-windows-x86_64 jdk-8u351-windows-x64"}</script><link rel="canonical" href="https://sayurinana.ink/2024-02-19/Qt-5-14-2-%E9%85%8D%E7%BD%AE%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/"><link rel="icon" href="https://s2.loli.net/2022/03/22/tYA8x4USsG2h3Cf.jpg"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><meta name="generator" content="Hexo 5.4.1"></head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://s2.loli.net/2022/03/25/ehIx6UHAZfSsJKw.png" alt="柒柒の窝" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">时间轴归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a><a class="navbar-item" href="/album">相册</a><a class="navbar-item" href="/message">留言板</a><a class="navbar-item" href="/self-talking">碎碎念</a><a class="navbar-item" href="/music">Music</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2024-02-19  <a class="commentCountImg" href="/2024-02-19/Qt-5-14-2-%E9%85%8D%E7%BD%AE%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/#comment-container"><span class="display-none-class">cabe9a6979a7b65354e263881bacf31e</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="cabe9a6979a7b65354e263881bacf31e">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>20 分钟  <i class="fas fa-pencil-alt"> </i>2.9 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">Qt 5.14.2 配置安卓开发</h1><div class="content"><blockquote>
+<p>在Windows下 使用Qt 5.14.2 配置安卓开发</p>
+<p>本文环境：</p>
+<ul>
+<li>OS：Windows 10</li>
+<li>Qt 5.14.2</li>
+<li>android-sdk_r25.2.5-windows（r24.4.1 升级来的）</li>
+<li>android-ndk-r20b-windows-x86_64</li>
+<li>jdk-8u351-windows-x64</li>
+</ul>
+</blockquote>
+<span id="more"></span>
+<h1 id="修改记录"><a class="markdownIt-Anchor" href="#修改记录"></a> 修改记录</h1>
+<blockquote>
+<p><a href="#2024-02-21_16:50:37.691502">2024.02.21：</a>新建项目选择Kit建议</p>
+</blockquote>
+<h1 id="安装-qt"><a class="markdownIt-Anchor" href="#安装-qt"></a> 安装 Qt</h1>
+<blockquote>
+<p>详见<a href="/2024-02-17/Windows%E5%AE%89%E8%A3%85Qt-5-14-2/" title="Windows安装Qt 5.14.2">Windows安装Qt 5.14.2</a></p>
+<p>或自行搜索学习</p>
+<p>此处略</p>
+</blockquote>
+<p>只要注意选择组件时图示红圈中的那个<code>Android</code>选项被选中了就行，</p>
+<p>如果是已完成安装了的，要检查是否有这个组件，可以看看它的文件夹是否存在，</p>
+<p>比如我的Qt5安装在<code>X:\Qt\Qt5.14.2</code>，那么这个组件的目录路径就是<code>X:\Qt\Qt5.14.2\5.14.2\android</code></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219213144454.png" alt="image-20240219213144454" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219213641371.png" alt="image-20240219213641371" /></p>
+<h1 id="安装android-sdk"><a class="markdownIt-Anchor" href="#安装android-sdk"></a> 安装Android SDK</h1>
+<blockquote>
+<p>常用工具网站地址：<a target="_blank" rel="noopener" href="https://www.androiddevtools.cn/">https://www.androiddevtools.cn/</a></p>
+<p>或见 <a href="#%E8%B5%84%E6%BA%90%E5%88%97%E8%A1%A8">我的资源分享</a>中的<strong>android SDK r24.4.1</strong>，若使用分享的sdk包则可以直接跳转至 <a href="#%E4%BD%BF%E7%94%A8%E5%8E%8B%E7%BC%A9%E5%8C%85%E8%BF%9B%E8%A1%8Candroid_sdk%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE">安装配置部分</a></p>
+</blockquote>
+<h2 id="获取android-sdk包"><a class="markdownIt-Anchor" href="#获取android-sdk包"></a> 获取android sdk包</h2>
+<p>访问工具网站，选择<code>SDK Tools</code></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219221550989.png" alt="image-20240219221550989" /></p>
+<p>点击下载图示红圈中的文件</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219221726065.png" alt="image-20240219221726065" /></p>
+<h2 id="使用压缩包进行android_sdk安装配置"><a class="markdownIt-Anchor" href="#使用压缩包进行android_sdk安装配置"></a> 使用压缩包进行android_sdk安装配置</h2>
+<p>把下载的压缩包解压到一个位置，得到sdk目录，此处我使用<code>Y:\Temp\android-sdk-windows</code>演示，效果图如下</p>
+<blockquote>
+<p>注意这个位置一定不能包含非ASCII字符，比如中文等，并且不能有空格，</p>
+<p>否则会无法正常运行</p>
+</blockquote>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219222406774.png" alt="image-20240219222406774" /></p>
+<h2 id="使用sdk-managerexe完成更新安装"><a class="markdownIt-Anchor" href="#使用sdk-managerexe完成更新安装"></a> 使用<code>SDK Manager.exe</code>完成更新安装</h2>
+<p>可以通过<code>Tools -&gt; About</code>查看当前版本信息，现在是24.4.1</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231313576.png" alt="image-20240219231313576" /><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231322621.png" alt="image-20240219231322621" /></p>
+<p>先把所有的勾选去掉，然后右下角俩按钮会变成灰色</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231512912.png" alt="image-20240219231512912" /></p>
+<p>然后按照下列图中所示勾选包，</p>
+<blockquote>
+<p>其中<code>Android 7.0 (API 24)</code>里那几个<code>System Image</code>可以不用全选，</p>
+<p>如果用不到那么多架构平台的话，只选需要的下载安装就行，</p>
+<p>还有那个第一个<code>Tools</code>的第一条<code>Android SDK Tools</code>将会把这个SDK更新至 25.2.5 版本</p>
+</blockquote>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231610322.png" alt="image-20240219231610322" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231818348.png" alt="image-20240219231818348" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219231946664.png" alt="image-20240219231946664" /></p>
+<p>如果那几个系统架构全选应该是20个包，单击<strong>Install</strong>安装，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219232508480.png" alt="image-20240219232508480" /></p>
+<p>然后单选<code>Accept License</code>同意许可证后再单击<strong>Install</strong>开始安装，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219232601603.png" alt="image-20240219232601603" /></p>
+<p>在正确安装完成之后，</p>
+<p>应该能在sdk目录下的<code>extras\intel\Hardware_Accelerated_Execution_Manager</code>这个路径里找到</p>
+<p>一个exe可执行文件<code>intelhaxm-android.exe</code>，</p>
+<p>如果没有的话检查一下<code>HAXM installer</code>的状态是否是已安装，没的话就再次安装这个包，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219233232779.png" alt="image-20240219233232779" /></p>
+<p>如果不安装这个功能，之后启动安卓模拟器的话应该会报错，会有关于HAXM的报错信息，</p>
+<p>双击运行进行安装，此处略</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219233103952.png" alt="image-20240219233103952" /></p>
+<h2 id="检查sdk版本"><a class="markdownIt-Anchor" href="#检查sdk版本"></a> 检查SDK版本</h2>
+<p>在安装完上一步的更新后，此时SDK的版本应该已经是 25.2.5 了</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240219234156332.png" alt="image-20240219234156332" /></p>
+<h2 id="配置环境变量可跳过"><a class="markdownIt-Anchor" href="#配置环境变量可跳过"></a> 配置环境变量（可跳过）</h2>
+<p>这一步可跳过，因为，ennnnn，貌似Qt 5.14.2它不依赖环境变量来查找相关的东西，它是靠软件里的配置来找，如果那个配置错了才会出问题，</p>
+<p>但是android sdk都装了，就顺便给配上环境变量吧，</p>
+<p>例如我的SDK目录是<code>Y:\Temp\android-sdk-windows</code>，</p>
+<p>那么应该配置下表所示的环境变量，具体配置方法详见 <a href="/2024-02-19/Windows%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="Windows配置环境变量">Windows配置环境变量</a>，</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>内容</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ANDROID_HOME</td>
+<td>Y:\Temp\android-sdk-windows</td>
+<td>用以确定Android SDK安装目录</td>
+</tr>
+<tr>
+<td>ANDROID_SDK_ROOT</td>
+<td>Y:\Temp\android-sdk-windows</td>
+<td>同上，但已弃用，旧的工具可能会用到</td>
+</tr>
+<tr>
+<td>ANDROID_SDK_HOME</td>
+<td>Y:\Temp\android-sdk-windows</td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+<p>并且在环境变量<code>Path</code>中添加一条记录<code>Y:\Temp\android-sdk-windows\platform-tools</code>，</p>
+<p>这样便于命令行直接键入<code>adb</code>命令来调用<code>adb</code>工具，</p>
+<h1 id="安装android-ndk"><a class="markdownIt-Anchor" href="#安装android-ndk"></a> 安装Android NDK</h1>
+<blockquote>
+<p>官网地址：<a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/downloads?hl=zh-cn">NDK 下载  | Android NDK  | Android Developers (google.cn)</a></p>
+<p>或见 <a href="#%E8%B5%84%E6%BA%90%E5%88%97%E8%A1%A8">我的资源分享</a>中的<strong>android ndk r20b</strong>，若使用分享的sdk包则可以直接跳转至 <a href="#%E4%BD%BF%E7%94%A8%E5%8E%8B%E7%BC%A9%E5%8C%85%E8%BF%9B%E8%A1%8Candroid_ndk%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE">安装配置部分</a></p>
+</blockquote>
+<h2 id="获取android-ndk包"><a class="markdownIt-Anchor" href="#获取android-ndk包"></a> 获取android ndk包</h2>
+<p>访问官网，在页面中找到<a target="_blank" rel="noopener" href="https://github.com/android/ndk/wiki/Unsupported-Downloads">不受支持的NDK下载</a>，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220000356176.png" alt="image-20240220000356176" /></p>
+<p>访问该页面，然后找到r20b版本ndk资源，单击下载，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220000527234.png" alt="image-20240220000527234" /></p>
+<h2 id="使用压缩包进行android_ndk安装配置"><a class="markdownIt-Anchor" href="#使用压缩包进行android_ndk安装配置"></a> 使用压缩包进行android_ndk安装配置</h2>
+<p>把下载的压缩包解压到一个位置，得到sdk目录，此处我使用<code>Y:\Temp\android-ndk-r20b</code>演示，效果图如下，</p>
+<blockquote>
+<p>一般这种数据资源之类的都建议文件路径一定只含义数字字母下划线且没有空格，</p>
+<p>不然容易因此无法正常运行</p>
+</blockquote>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220000945329.png" alt="image-20240220000945329" /></p>
+<h1 id="安装jdk"><a class="markdownIt-Anchor" href="#安装jdk"></a> 安装JDK</h1>
+<blockquote>
+<p>官网地址：<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/">Java Downloads | Oracle</a></p>
+<p>或见 <a href="#%E8%B5%84%E6%BA%90%E5%88%97%E8%A1%A8">我的资源分享</a>中的<strong>jdk 8u351</strong>，若使用分享的sdk包则可以直接跳转至 <a href="#%E4%BD%BF%E7%94%A8%E5%AE%89%E8%A3%85%E5%8C%85%E8%BF%9B%E8%A1%8Cjdk%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE">安装配置部分</a>，</p>
+<p>编辑这篇文章时官网这个页面提供的是8u401版本的包了，我分享的是8u351，不过于此处无妨，</p>
+</blockquote>
+<p>访问官网，选择 <strong>Java archive</strong>，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001518302.png" alt="image-20240220001518302" /></p>
+<p>在页面中找到<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html">Java SE 8 (8u211 and later)</a>并单击，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001630802.png" alt="image-20240220001630802" /></p>
+<p>进入页面后下滑选择<strong>Windows</strong>，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001853596.png" alt="image-20240220001853596" /></p>
+<p>单击进行下载，需要登录，自行完成，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220001939990.png" alt="image-20240220001939990" /></p>
+<h2 id="使用安装包进行jdk安装配置"><a class="markdownIt-Anchor" href="#使用安装包进行jdk安装配置"></a> 使用安装包进行jdk安装配置</h2>
+<p>双击运行下载的安装包，一路默认下一步即可，</p>
+<p>默认情况下安装完成的jdk路径应该是<code>C:\Program Files\Java\jdk1.8.0_351</code>，</p>
+<p>8u401版本则是<code>C:\Program Files\Java\jdk1.8.0_401</code>，</p>
+<h2 id="配置环境变量"><a class="markdownIt-Anchor" href="#配置环境变量"></a> 配置环境变量</h2>
+<p>添加一个变量名为<code>JAVA_HOME</code>，值为<code>C:\Program Files\Java\jdk1.8.0_351</code>的环境变量，用于定位java安装目录，</p>
+<p>并在环境变量<code>Path</code>中添加一条<code>%JAVA_HOME%\bin</code>，用于搜索java可执行程序，</p>
+<p>Windows配置环境变量方法详见 <a href="/2024-02-19/Windows%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="Windows配置环境变量">Windows配置环境变量</a>，</p>
+<h1 id="在qt中进行配置"><a class="markdownIt-Anchor" href="#在qt中进行配置"></a> 在Qt中进行配置</h1>
+<p>打开Qt Creator，</p>
+<p>选择<code>工具 -&gt; 选项</code>，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003134371.png" alt="image-20240220003134371" /></p>
+<p>左侧选择<strong>设备</strong>，然后右侧上方选择<strong>Android</strong>标签页，</p>
+<p>之后在JDK、SDK、NDK栏填入对应路径，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003359616.png" alt="image-20240220003359616" /></p>
+<p>都正确时应该会有如下显示，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003543141.png" alt="image-20240220003543141" /></p>
+<p>之后单击右下角<strong>Apply</strong>完成设置应用，或者直接点<strong>OK</strong>应用并退出，</p>
+<p>都配置正确的话，此时的这一条应该是正常可用的，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220003746531.png" alt="image-20240220003746531" /></p>
+<h1 id="测试运行"><a class="markdownIt-Anchor" href="#测试运行"></a> 测试运行</h1>
+<h2 id="新建qt项目"><a class="markdownIt-Anchor" href="#新建qt项目"></a> 新建Qt项目</h2>
+<p><code>Qt Creator -&gt; 新建文件或项目</code></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134317632.png" alt="image-20240220134317632" /></p>
+<p>就用默认的第一个<code>Qt Widgets Application</code>就行，然后单击右下角<code>Choose</code></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134434416.png" alt="image-20240220134434416" /></p>
+<p>后面几步用默认的设置就行，直到选择组件，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134532156.png" alt="image-20240220134532156" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134548632.png" alt="image-20240220134548632" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134558285.png" alt="image-20240220134558285" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134607660.png" alt="image-20240220134607660" /></p>
+<p>组件这里一定要把安卓选上（虽然后面也能再添加啦），然后再加一个Windows的方便直接看效果就行，</p>
+<p>这里用msvc还是mingw都行，因为这个简单的例程几乎没什么东西，在这里msvc不会比mingw快多少区别不大，</p>
+<blockquote>
+<p><a name="2024-02-21_16:50:37.691502">2024.02.21 补：</a></p>
+<p>这里还是选MinGW吧，好像Qt5这里对MSVC支持不太好，Qt安装的时候带的MinGW挺好使的，也不用配置啥，基本上都是安装的时候选了然后后面就能直接用上的，而MSVC那个东东配置起来坑人滴狠涅，焯，</p>
+<p>要配置的话详见 <a href="/2024-02-20/Qt-5-14-2-%E9%85%8D%E7%BD%AEMSVC2017%E6%9E%84%E5%BB%BA%E5%A5%97%E4%BB%B6/" title="Qt 5.14.2 配置MSVC2017构建套件">Qt 5.14.2 配置MSVC2017构建套件</a></p>
+</blockquote>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220134904725.png" alt="image-20240220134904725" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135037057.png" alt="image-20240220135037057" /></p>
+<h2 id="对项目稍作修改"><a class="markdownIt-Anchor" href="#对项目稍作修改"></a> 对项目稍作修改</h2>
+<p>项目新建完成后，在<strong>编辑</strong>界面<strong>项目导航窗格</strong>展开<code>Forms</code>文件夹，双击打开<code>mainwindows.ui</code>文件，会自动跳转至<strong>设计</strong>界面，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135217512.png" alt="image-20240220135217512" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135519921.png" alt="image-20240220135519921" /></p>
+<p>然后拖动中间灰色部分框框右下角的节点，拖往中间，缩小一点，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135635031.png" alt="image-20240220135635031" /></p>
+<p>然后在左侧列表往下滑找到<strong>Label</strong>，拖一个进去，然后双击输入<code>123</code>，上方那个在这里输入可以不管它，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135445532.png" alt="image-20240220135445532" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135721996.png" alt="image-20240220135721996" /></p>
+<p>再从上面找一个<strong>Push Button</strong>拖进去，双击输入<code>abc</code>，完成后按下快捷键<code>Ctrl + S</code>保存文件修改，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135833420.png" alt="image-20240220135833420" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135828350.png" alt="image-20240220135828350" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240220135941365.png" alt="image-20240220135941365" /></p>
+<h2 id="开始构建"><a class="markdownIt-Anchor" href="#开始构建"></a> 开始构建</h2>
+<p>我这一部分写的晚，之前刚写的时候前面是选择用MSVC构建，后来这东东给我整破防，还是算了，</p>
+<p>咱还是选择用MinGW构建吧，省心就够了，</p>
+<p>选择Qt左侧项目，然后双击<strong>Desktop Qt 5.14.2 MinGW 64-bit</strong>，然后程序应该会停顿一会儿，Qt界面右下角会弹出几个小绿条，就算是完成了构建的选择和切换，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221180935901.png" alt="image-20240221180935901" /></p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221180907720.png" alt="image-20240221180907720" /></p>
+<p>然后点击左下方的灰色显示器图标检查配置，我这里这个表示现在选择的是：</p>
+<p>构建套件为<strong>Desktop Qt 5.14.2 MinGW 64-bit</strong>，构建配置为<strong>Debug</strong>，</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221181102229.png" alt="image-20240221181102229" /></p>
+<p>然后点左下角那个小锤子，开始构建，</p>
+<p>或者点上面那个绿色小三角，开始构建并运行，</p>
+<p>效果如下：</p>
+<p><img src="https://sayurinana-aliyun-oss.oss-cn-beijing.aliyuncs.com/img/image-20240221181320201.png" alt="image-20240221181320201" /></p>
+<h1 id="资源列表"><a class="markdownIt-Anchor" href="#资源列表"></a> 资源列表</h1>
+<blockquote>
+<p>以下所列是<strong>相对于我的博客分享资源中的资源位置</strong>，</p>
+<p>具体使用方法详见 <a href="/2024-02-17/%E5%8D%9A%E5%AE%A2%E5%88%86%E4%BA%AB%E8%B5%84%E6%BA%90/" title="博客分享资源">博客分享资源</a></p>
+</blockquote>
+<ul>
+<li>android SDK r24.4.1
+<ul>
+<li>压缩包/android-sdk_r24.4.1-windows.zip</li>
+</ul>
+</li>
+<li>android ndk r20b
+<ul>
+<li>压缩包/android-ndk-r20b-windows-x86_64.zip</li>
+</ul>
+</li>
+<li>jdk 8u351
+<ul>
+<li>可执行文件/jdk-8u351-windows-x64.exe</li>
+</ul>
+</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Qt 5.14.2 配置安卓开发</p><p><a href="https://sayurinana.ink/2024-02-19/Qt-5-14-2-配置安卓开发/">https://sayurinana.ink/2024-02-19/Qt-5-14-2-配置安卓开发/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><a href="https://sayurinana.ink"><p>樱缘柒柒</p></a></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2024-02-19</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2024-02-26</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># 相关文章</span><br><span>  1.<a class="is-size-6" href="/2024-02-20/Qt-5-14-2-%E9%85%8D%E7%BD%AEMSVC2017%E6%9E%84%E5%BB%BA%E5%A5%97%E4%BB%B6/" target="_blank">Qt 5.14.2 配置MSVC2017构建套件</a><br></span></div><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># 推荐文章</span><br><span>  1.<a class="is-size-6" href="/2020-03-13/MarkDown/" target="_blank">MarkDown</a><br></span><span>  2.<a class="is-size-6" href="/2020-12-15/%E4%B8%80%E4%BA%9Bwindows%E6%9C%8D%E5%8A%A1%E5%90%8D%E5%8F%8A%E7%AE%80%E4%BB%8B/" target="_blank">一些windows服务名及简介</a><br></span><span>  3.<a class="is-size-6" href="/2020-12-16/%E6%89%A9%E5%AE%B9%E6%A0%B9%E5%88%86%E5%8C%BA/" target="_blank">扩容根分区</a><br></span><span>  4.<a class="is-size-6" href="/2021-01-18/LaTeX%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7/" target="_blank">LaTeX数学符号</a><br></span><span>  5.<a class="is-size-6" href="/2021-03-24/%E8%AF%AD%E6%96%87%E6%9F%A5%E6%BC%8F/" target="_blank">语文查漏</a><br></span><span>  6.<a class="is-size-6" href="/2021-06-23/%E5%AE%89%E8%A3%85mysql/" target="_blank">mysql</a><br></span></div></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=623ae5c74a222e001a07b7a9&product=inline-share-buttons" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="https://s2.loli.net/2022/03/22/LZPxy3iqjMpDg2C.jpg" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="https://s2.loli.net/2022/03/22/kozxNjcvnliR3XP.jpg" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024-02-19/Windows%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Windows配置环境变量</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024-02-17/%E5%8D%9A%E5%AE%A2%E5%88%86%E4%BA%AB%E8%B5%84%E6%BA%90/"><span class="level-item">博客分享资源</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">评论</div><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('/js/gitalk.min.js', function () { 
+            var gitalk = new Gitalk({
+            language:'zh-CN',
+            id: 'cabe9a6979a7b65354e263881bacf31e',
+            repo: 'Gitalk_for_sayurinana_ink',
+            owner: 'sayurinana',
+            clientID: '3da56ebfa6536d0515b0',
+            clientSecret: '638cd5e6cd30ea36c385f04da1ae0585a7d08503',
+            admin: ["sayurinana"],
+            createIssueManually: true,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            proxy: 'https://vercel.prohibitorum.top/github_access_token',
+            
+            enableHotKey: true,
+            isLocked: false
+        })
+        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="is-flex is-mobile" href="#修改记录"><span> 修改记录</span></a></li><li><a class="is-flex is-mobile" href="#安装-qt"><span> 安装 Qt</span></a></li><li><a class="is-flex is-mobile" href="#安装android-sdk"><span> 安装Android SDK</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#获取android-sdk包"><span> 获取android sdk包</span></a></li><li><a class="is-flex is-mobile" href="#使用压缩包进行android_sdk安装配置"><span> 使用压缩包进行android_sdk安装配置</span></a></li><li><a class="is-flex is-mobile" href="#使用sdk-managerexe完成更新安装"><span> 使用SDK Manager.exe完成更新安装</span></a></li><li><a class="is-flex is-mobile" href="#检查sdk版本"><span> 检查SDK版本</span></a></li><li><a class="is-flex is-mobile" href="#配置环境变量可跳过"><span> 配置环境变量（可跳过）</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#安装android-ndk"><span> 安装Android NDK</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#获取android-ndk包"><span> 获取android ndk包</span></a></li><li><a class="is-flex is-mobile" href="#使用压缩包进行android_ndk安装配置"><span> 使用压缩包进行android_ndk安装配置</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#安装jdk"><span> 安装JDK</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#使用安装包进行jdk安装配置"><span> 使用安装包进行jdk安装配置</span></a></li><li><a class="is-flex is-mobile" href="#配置环境变量"><span> 配置环境变量</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#在qt中进行配置"><span> 在Qt中进行配置</span></a></li><li><a class="is-flex is-mobile" href="#测试运行"><span> 测试运行</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#新建qt项目"><span> 新建Qt项目</span></a></li><li><a class="is-flex is-mobile" href="#对项目稍作修改"><span> 对项目稍作修改</span></a></li><li><a class="is-flex is-mobile" href="#开始构建"><span> 开始构建</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#资源列表"><span> 资源列表</span></a></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://s2.loli.net/2022/03/21/7ufJAeOpqlSwycR.png" alt="樱缘柒柒"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">樱缘柒柒</p><p class="is-size-6 is-block">一个真正的人啊，是要有趣味和心的，，，我已经失去了趣味，还弄脏了我的心，</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>the earth</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">127</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">32</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">57</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/sayurinana" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/sayurinana"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="mailto:sayurinana@163.com"><i class="fa fa-envelope"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"来源《"+data.from+"》</p><p>提供者-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://space.bilibili.com/234561771" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">BiliBili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li><li><a class="level is-mobile" href="https://quickref.me/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">QuickRef</span></span><span class="level-right"><span class="level-item tag">quickref.me</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">公告栏</h3><ul><li><span><span>1. 2020.2.20 初建</span></span></li><li><span><span>2. 首页的<del>文章</del>内容是被定义的排序，<a href="/archives">归档</a>的内容是按时间轴铺展的</span></span></li><li><span><span>3. 含有负面内容（如负面情绪）、R18内容（如血腥、色情、暴力等，虽然应该不会有啦）、部分特别内容的文章，会使用加密</span></span></li><li><span><span>4. 部分文章没开评论区的可以发<a href="mailto:sayurinana@163.com">e-mail</a>或者前往<a href="/message">留言板</a></span></span></li><li><span><span>5. 有过更新的篇目会在文章首部摘要之后有更新记录</span></span></li><li><span><span>6. 唔，我习惯把一些相对独立的过程或者操作单独编辑一篇出来，然后在需要用到的地方使用超链接引用，比如说解决问题、安装过程、常有多种方法的操作等，这样，作为单独的一篇，能叙述清晰一些，且通过引用能减少赘述</span></span></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新评论</h3><span class="body_hot_comment">加载中，最新评论有1分钟缓存...</span></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-29T11:59:59.000Z">2024-02-29</time></p><p class="title"><a href="/2024-02-29/Windows%E5%AE%89%E8%A3%85MySQL5-7/">Windows安装MySQL5.7</a></p><p class="categories"><a href="/categories/%E5%85%B3%E4%BA%8E/">关于</a> / <a href="/categories/%E5%85%B3%E4%BA%8E/%E5%AE%89%E8%A3%85/">安装</a> / <a href="/categories/MySQL/">MySQL</a> / <a href="/categories/MySQL/MySQL5-7/">MySQL5.7</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-29T09:44:39.000Z">2024-02-29</time></p><p class="title"><a href="/2024-02-29/%E8%AE%B0%E5%BD%95npm%E4%BF%A1%E6%81%AF%EF%BC%9AXXX-packages-are-looking-for-funding/">记录npm信息：XXX packages are looking for funding</a></p><p class="categories"><a href="/categories/%E5%BE%85%E5%88%86%E7%B1%BB/">待分类</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-29T09:42:36.000Z">2024-02-29</time></p><p class="title"><a href="/2024-02-29/%E8%A7%A3%E5%86%B3npm%E9%94%99%E8%AF%AF%EF%BC%9Afound-XXX-vulnerabilities/">解决npm错误：found XXX vulnerabilities</a></p><p class="categories"><a href="/categories/%E5%BE%85%E5%88%86%E7%B1%BB/">待分类</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-29T09:40:28.000Z">2024-02-29</time></p><p class="title"><a href="/2024-02-29/Windows%E5%88%A0%E9%99%A4%E6%9C%8D%E5%8A%A1/">Windows删除服务</a></p><p class="categories"><a href="/categories/Windows/">Windows</a> / <a href="/categories/Windows/General/">General</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-23T07:16:03.000Z">2024-02-23</time></p><p class="title"><a href="/2024-02-23/%E5%AE%89%E8%A3%85Node-js/">安装Node.js</a></p><p class="categories"><a href="/categories/%E5%85%B3%E4%BA%8E/">关于</a> / <a href="/categories/%E5%85%B3%E4%BA%8E/%E5%AE%89%E8%A3%85/">安装</a></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/categories/DeBug/"><span class="level-start"><span class="level-item">DeBug</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/Language/"><span class="level-start"><span class="level-item">Language</span></span><span class="level-end"><span class="level-item tag">4</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/categories/Language/C/"><span class="level-start"><span class="level-item">C++</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/Language/LaTeX/"><span class="level-start"><span class="level-item">LaTeX</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/Language/MarkDown/"><span class="level-start"><span class="level-item">MarkDown</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/Language/Python/"><span class="level-start"><span class="level-item">Python</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile is-marginless" href="/categories/MySQL/"><span class="level-start"><span class="level-item">MySQL</span></span><span class="level-end"><span class="level-item tag">1</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/categories/MySQL/MySQL5-7/"><span class="level-start"><span class="level-item">MySQL5.7</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile is-marginless" href="/categories/Qt/"><span class="level-start"><span class="level-item">Qt</span></span><span class="level-end"><span class="level-item tag">8</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/categories/Qt/Qt5/"><span class="level-start"><span class="level-item">Qt5</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li></ul></li><a class="level is-mobile is-marginless" href="/categories/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2024/02/"><span class="level-start"><span class="level-item">二月 2024</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/02/"><span class="level-start"><span class="level-item">二月 2023</span></span><span class="level-end"><span class="level-item tag">10</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2022/12/"><span class="level-start"><span class="level-item">十二月 2022</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2022/11/"><span class="level-start"><span class="level-item">十一月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2022/10/"><span class="level-start"><span class="level-item">十月 2022</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><a class="level is-mobile is-marginless" href="/archives/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/log/"><span class="tag">log</span><span class="tag is-grey-lightest">76</span></a></div><div class="control"><a class="tags has-addons" href="/tags/encrypt/"><span class="tag">encrypt</span><span class="tag is-grey-lightest">51</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%B8%AD%E8%81%8C%E5%AD%A6%E4%B9%A0/"><span class="tag">中职学习</span><span class="tag is-grey-lightest">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A4%8D%E4%B9%A0/"><span class="tag">复习</span><span class="tag is-grey-lightest">16</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BD%92%E7%BA%B3/"><span class="tag">归纳</span><span class="tag is-grey-lightest">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Qt5/"><span class="tag">Qt5</span><span class="tag is-grey-lightest">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Windows/"><span class="tag">Windows</span><span class="tag is-grey-lightest">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DeBug/"><span class="tag">DeBug</span><span class="tag is-grey-lightest">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag is-grey-lightest">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/word/"><span class="tag">word</span><span class="tag is-grey-lightest">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/wps/"><span class="tag">wps</span><span class="tag is-grey-lightest">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/schema/"><span class="tag">schema</span><span class="tag is-grey-lightest">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AE%89%E8%A3%85/"><span class="tag">安装</span><span class="tag is-grey-lightest">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A8%E8%8D%90/"><span class="tag">推荐</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DNS/"><span class="tag">DNS</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MSVC/"><span class="tag">MSVC</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/apache/"><span class="tag">apache</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/debug/"><span class="tag">debug</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/notag/"><span class="tag">notag</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%8E%AF%E5%A2%83/"><span class="tag">环境</span><span class="tag is-grey-lightest">2</span></a></div></div><div class="field is-grouped is-grouped-multiline"><a class="tags has-addons" href="/tags/"><span class="tag">查看全部&gt;&gt;</span></a></div></div></div></div><!--!--><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://s2.loli.net/2022/03/25/ehIx6UHAZfSsJKw.png" alt="柒柒の窝" height="28"></a><p class="size-small"><span>&copy; 2024 樱缘柒柒</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> & <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© <a href="http://www.beian.miit.gov.cn/" target="_blank">京ICP备88888888号-8（测试）</a><br></span><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️本站自 <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> 已运行 <strong>" + dnum + "</strong> 天 <strong>" + hnum + "</strong> 小时 <strong>" + mnum + "</strong> 分 <strong>" + snum + "</strong> 秒！❤️";
+        }var now = new Date();setInterval("createTime('2020/02/20 15:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="7425337956" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('3da56ebfa6536d0515b0','638cd5e6cd30ea36c385f04da1ae0585a7d08503','sayurinana','Gitalk_for_sayurinana_ink',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { //加载mathjax
+            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
+                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
+                var math = document.getElementsByClassName("entry-content")[0];
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+            });
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(true){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('3da56ebfa6536d0515b0','638cd5e6cd30ea36c385f04da1ae0585a7d08503','sayurinana','Gitalk_for_sayurinana_ink',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
